@@ -57,7 +57,6 @@
 
 							<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
 								<li class="active"><a href="index.php">Home</a></li>
-								<li><a href="about.php">About</a></li>
 								<li><a href="login.php">Login</a></li>
 							</ul>
 						</div>
