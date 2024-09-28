@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2024 at 04:57 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Sep 28, 2024 at 04:25 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,91 +18,54 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_mading`
+-- Database: `lsp_51421657`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_artikel`
+-- Table structure for table `admin`
 --
 
-CREATE TABLE `tb_artikel` (
-  `id_artikel` int(4) NOT NULL,
-  `sampul` varchar(200) NOT NULL,
-  `judul` varchar(100) NOT NULL,
-  `isi` text NOT NULL,
-  `status_artikel` enum('publish','draft') NOT NULL,
-  `id_users` int(4) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `kategori` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `admin` (
+  `id_user` char(10) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `nama` varchar(20) NOT NULL,
+  `password` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_users`
+-- Table structure for table `artikel`
 --
 
-CREATE TABLE `tb_users` (
-  `id_users` int(4) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `username` varchar(120) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tb_users`
---
-
-INSERT INTO `tb_users` (`id_users`, `name`, `username`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', '$2y$10$0tbWigwFHWb7/ZEc5Gfg3e1JVEy7iI8ECjPJ9XSsXhzHShTBDhLfC', '2023-12-30 13:58:43', '2023-12-30 13:58:43');
+CREATE TABLE `artikel` (
+  `id_user` char(10) NOT NULL,
+  `id_artikel` char(10) NOT NULL,
+  `judul` varchar(30) NOT NULL,
+  `nama_penulis` varchar(30) NOT NULL,
+  `isi_artikel` varchar(300) NOT NULL,
+  `tgl_unggah` date NOT NULL,
+  `gambar` blob NOT NULL,
+  `status` enum('publish','draft') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tb_artikel`
+-- Indexes for table `admin`
 --
-ALTER TABLE `tb_artikel`
-  ADD PRIMARY KEY (`id_artikel`),
-  ADD KEY `id_users` (`id_users`);
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id_user`);
 
 --
--- Indexes for table `tb_users`
+-- Indexes for table `artikel`
 --
-ALTER TABLE `tb_users`
-  ADD PRIMARY KEY (`id_users`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tb_artikel`
---
-ALTER TABLE `tb_artikel`
-  MODIFY `id_artikel` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_users`
---
-ALTER TABLE `tb_users`
-  MODIFY `id_users` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tb_artikel`
---
-ALTER TABLE `tb_artikel`
-  ADD CONSTRAINT `tb_artikel_iblk1` FOREIGN KEY (`id_users`) REFERENCES `tb_users` (`id_users`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE `artikel`
+  ADD PRIMARY KEY (`id_artikel`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
