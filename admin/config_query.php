@@ -17,7 +17,7 @@ class database
 
     public function get_data_users($username)
     {
-        
+
         $data = mysqli_query(mysql: $this->koneksi, query: "SELECT * FROM tb_users WHERE username = '$username'");
 
         return $data;
