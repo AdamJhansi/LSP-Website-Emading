@@ -17,18 +17,17 @@ class database
 
     public function get_data_users($username)
     {
-
         $data = mysqli_query(mysql: $this->koneksi, query: "SELECT * FROM tb_users WHERE username = '$username'");
-
         return $data;
     }
 
     public function show_data()
     {
         $hasil = array();
-
-        $data = mysqli_query($this->koneksi, "SELECT id_artikel, sampul, judul, isi, status_artikel, kategori, tba.id_users FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users");
-
+        $data = mysqli_query(
+            $this->koneksi,
+            "SELECT id_artikel, sampul, judul, isi, status_artikel, kategori, tba.id_users FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users"
+        );
         if ($data) {
             if (mysqli_num_rows($data) > 0) {
                 while ($row = mysqli_fetch_array($data)) {
@@ -38,15 +37,14 @@ class database
                 $hasil = "0";
             }
         }
-
         return $hasil;
     }
-
 
     public function add_data($sampul, $judul, $isi, $status_artikel, $kategori, $id_users)
     {
         $datetime = date("Y-m-d H:i:s");
-        $insert = mysqli_query($this->koneksi, "INSERT into tb_artikel (sampul, judul, isi, status_artikel, id_users, created_at, kategori) values ('$sampul', '$judul', '$isi', '$status_artikel', '$id_users', '$datetime', '$kategori')");
+        $insert = mysqli_query($this->koneksi, "INSERT into tb_artikel (sampul, judul, isi,
+         status_artikel, id_users, created_at, kategori) values ('$sampul', '$judul', '$isi', '$status_artikel', '$id_users', '$datetime', '$kategori')");
 
         return $insert;
     }
@@ -54,7 +52,6 @@ class database
     public function get_artikel_by_id($id_artikel)
     {
         $data = mysqli_query($this->koneksi, "SELECT tba.*, tbu.* FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users WHERE tba.id_artikel = $id_artikel");
-
         return $data ? mysqli_fetch_assoc($data) : null;
     }
 
@@ -69,15 +66,12 @@ class database
             kategori = '$kategori',
             updated_at = '$datetime'
             WHERE id_artikel = $id_artikel");
-
         return $update;
     }
 
-    // Delete article
     public function delete_data($id_artikel)
     {
         $delete = mysqli_query($this->koneksi, "DELETE FROM tb_artikel WHERE id_artikel = $id_artikel");
-
         return $delete;
     }
 
@@ -85,9 +79,7 @@ class database
     public function show_publish_data()
     {
         $artikel = array();
-
         $data = mysqli_query($this->koneksi, "SELECT tba.id_artikel, tba.sampul, tba.judul, tba.isi, tba.status_artikel, tba.kategori, tba.created_at, tba.id_users, tbu.name FROM tb_artikel tba JOIN tb_users tbu ON tba.id_users = tbu.id_users WHERE tba.status_artikel = 'publish'");
-
         if ($data) {
             if (mysqli_num_rows($data) > 0) {
                 while ($row = mysqli_fetch_array($data)) {
@@ -97,7 +89,6 @@ class database
                 $artikel = "0";
             }
         }
-
         return $artikel;
     }
 }
