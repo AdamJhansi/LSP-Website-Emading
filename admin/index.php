@@ -1,19 +1,12 @@
-<!-- Header -->
 <?php
 include('template/header.php');
 include("config_query.php");
 $db = new database();
-$data_artikel = $db->show_data();
-?>
+$data_artikel = $db->show_data(); ?>
 
-<!-- Content wrapper -->
 <div class="content-wrapper">
-    <!-- Content -->
-
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Manajemen /</span> Artikel</h4>
-
-        <!-- Responsive Table -->
         <div class="card">
             <div class="card-header">
                 <div class="row">
@@ -50,8 +43,7 @@ $data_artikel = $db->show_data();
                                 echo "<tr><td>Data Tidak Tersedia!</td></tr>";
                             } else {
                                 $no = 1;
-                                foreach ($data_artikel as $row) {
-                            ?>
+                                foreach ($data_artikel as $row) { ?>
                                     <tr>
                                         <th><?= $no++; ?></th>
                                         <td>
@@ -68,17 +60,14 @@ $data_artikel = $db->show_data();
                                             <button class="btn btn-sm btn-danger" onclick="deleteArticle(<?= $row['id_artikel']; ?>)">Hapus</button>
                                         </td>
                                     </tr>
-                                    <!-- script delete data -->
                                     <script>
                                         function deleteArticle(articleId) {
                                             if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
-                                                // If user confirms the deletion, perform AJAX request to delete the article
                                                 var xhr = new XMLHttpRequest();
                                                 xhr.open('POST', 'action_process.php?action=delete', true);
                                                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                                                 xhr.onreadystatechange = function() {
                                                     if (xhr.readyState == 4 && xhr.status == 200) {
-                                                        // Reload the page after successful deletion
                                                         window.location.reload();
                                                     }
                                                 };
@@ -95,11 +84,7 @@ $data_artikel = $db->show_data();
                 </div>
             </div>
         </div>
-        <!--/ Responsive Table -->
     </div>
-    <!-- / Content -->
-
-    <!-- footer -->
     <?php
     include('template/footer.php');
     ?>
